@@ -61,6 +61,7 @@ function AdminRoutes(props) {
                     loggedInUserState={props.loggedInUserState}
                     sendRequest={props.sendMessage}
                     QRCodeURL={props.QRCodeURL}
+                    focusedConnectionID={props.focusedConnectionID}
                   />
                 </Main>
               </Frame>
@@ -110,6 +111,7 @@ function AdminRoutes(props) {
                     sendRequest={props.sendMessage}
                     contacts={props.contacts}
                     QRCodeURL={props.QRCodeURL}
+                    focusedConnectionID={props.focusedConnectionID}
                   />
                 </Main>
               </Frame>

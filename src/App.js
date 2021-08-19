@@ -16,6 +16,8 @@ import AppHeader from './UI/AppHeader'
 
 import { check, CanUser } from './UI/CanUser'
 import rules from './UI/rbac-rules'
+import AdminRoute from './routes/AdminRoute'
+
 
 import Contact from './UI/Contact'
 import Contacts from './UI/Contacts'
@@ -715,7 +717,7 @@ function App() {
     cookies.remove('user')
 
     if (history !== undefined) {
-      history.push('/login')
+      history.push('/admin/login')
     }
   }
 
@@ -788,7 +790,7 @@ function App() {
                 }}
               />
               <Route
-                path="/login"
+                path="/admin/login"
                 render={({ match, history }) => {
                   return (
                     <Frame id="app-frame">
@@ -805,8 +807,21 @@ function App() {
                   )
                 }}
               />
-              <Route path="/">
-                <Redirect to="/login" />
+              {/* <Route
+                path="/"
+                exact
+                render={() => {
+                  return (
+                    <Root
+                      QRCodeURL={QRCodeURL}
+                      sendRequest={sendMessage}
+                      contacts={contacts}
+                    />
+                  )
+                }}
+              /> */}
+              <Route path="/admin">
+                <Redirect to="/admin/login" />
               </Route>
             </Switch>
           </Router>
@@ -821,302 +836,40 @@ function App() {
           <SessionProvider logout={handleLogout} sessionTimer={sessionTimer}>
             <Router>
               <Switch>
-                <Route exact path="/forgot-password">
-                  <Redirect to="/" />
-                </Route>
-                <Route exact path="/password-reset">
-                  <Redirect to="/" />
-                </Route>
-                <Route exact path="/account-setup">
-                  <Redirect to="/" />
-                </Route>
-                <Route exact path="/login">
-                  <Redirect to="/" />
-                </Route>
                 <Route
-                  path="/"
-                  exact
-                  render={({ match, history }) => {
+                  path="/admin"
+                  render={() => {
                     return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          logo={image}
-                          organizationName={organizationName}
-                          loggedInUsername={loggedInUsername}
-                          match={match}
-                          history={history}
-                          handleLogout={handleLogout}
-                        />
-                        <Main>
-                          <Home
-                            loggedInUserState={loggedInUserState}
-                            sendRequest={sendMessage}
-                            QRCodeURL={QRCodeURL}
-                            focusedConnectionID={focusedConnectionID}
-                          />
-                        </Main>
-                      </Frame>
-                    )
-                  }}
-                />
-                <Route
-                  path="/invitations"
-                  render={({ match, history }) => {
-                    return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          loggedInUsername={loggedInUsername}
-                          logo={image}
-                          organizationName={organizationName}
-                          match={match}
-                          history={history}
-                          handleLogout={handleLogout}
-                        />
-                        <Main>
-                          <p>Invitations</p>
-                        </Main>
-                      </Frame>
-                    )
-                  }}
-                />
-                <Route
-                  path="/contacts"
-                  exact
-                  render={({ match, history }) => {
-                    return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          loggedInUsername={loggedInUsername}
-                          logo={image}
-                          organizationName={organizationName}
-                          match={match}
-                          history={history}
-                          handleLogout={handleLogout}
-                        />
-                        <Main>
-                          <Contacts
-                            loggedInUserState={loggedInUserState}
-                            history={history}
-                            sendRequest={sendMessage}
-                            contacts={contacts}
-                            QRCodeURL={QRCodeURL}
-                            focusedConnectionID={focusedConnectionID}
-                          />
-                        </Main>
-                      </Frame>
-                    )
-                  }}
-                />
-                <Route
-                  path={`/contacts/:contactId`}
-                  render={({ match, history }) => {
-                    return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          loggedInUsername={loggedInUsername}
-                          logo={image}
-                          organizationName={organizationName}
-                          match={match}
-                          history={history}
-                          handleLogout={handleLogout}
-                        />
-                        <Main>
-                          <Contact
-                            loggedInUserState={loggedInUserState}
-                            history={history}
-                            sendRequest={sendMessage}
-                            contactId={match.params.contactId}
-                            contacts={contacts}
-                            credentials={credentials}
-                          />
-                        </Main>
-                      </Frame>
-                    )
-                  }}
-                />
-                <Route
-                  path="/credentials"
-                  exact
-                  render={({ match, history }) => {
-                    return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          loggedInUsername={loggedInUsername}
-                          logo={image}
-                          organizationName={organizationName}
-                          match={match}
-                          history={history}
-                          handleLogout={handleLogout}
-                        />
-                        <Main>
-                          <Credentials
-                            history={history}
-                            credentials={credentials}
-                          />
-                        </Main>
-                      </Frame>
-                    )
-                  }}
-                />
-                <Route
-                  path={`/credentials/:credentialId`}
-                  render={({ match, history }) => {
-                    return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          loggedInUsername={loggedInUsername}
-                          logo={image}
-                          organizationName={organizationName}
-                          match={match}
-                        />
-                        <Main>
-                          <Credential
-                            history={history}
-                            credential={match.params.credentialId}
-                            credentials={credentials}
-                          />
-                        </Main>
-                      </Frame>
-                    )
-                  }}
-                  credentials={credentials}
-                />
-                <Route
-                  path="/verification"
-                  render={({ match, history }) => {
-                    return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          loggedInUsername={loggedInUsername}
-                          logo={image}
-                          organizationName={organizationName}
-                          match={match}
-                          history={history}
-                          handleLogout={handleLogout}
-                        />
-                        <Main>
-                          <p>Verification</p>
-                        </Main>
-                      </Frame>
-                    )
-                  }}
-                />
-                <Route
-                  path="/messages"
-                  render={({ match, history }) => {
-                    return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          loggedInUsername={loggedInUsername}
-                          logo={image}
-                          organizationName={organizationName}
-                          match={match}
-                          history={history}
-                          handleLogout={handleLogout}
-                        />
-                        <Main>
-                          <p>Messages</p>
-                        </Main>
-                      </Frame>
-                    )
-                  }}
-                />
-                <Route
-                  path="/users"
-                  render={({ match, history }) => {
-                    return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          loggedInUsername={loggedInUsername}
-                          logo={image}
-                          organizationName={organizationName}
-                          match={match}
-                          history={history}
-                          handleLogout={handleLogout}
-                        />
-                        <Main>
-                          <Users
-                            loggedInUserState={loggedInUserState}
-                            roles={roles}
-                            users={users}
-                            user={user}
-                            successMessage={successMessage}
-                            errorMessage={errorMessage}
-                            clearResponseState={clearResponseState}
-                            sendRequest={sendMessage}
-                          />
-                        </Main>
-                      </Frame>
-                    )
-                  }}
-                />
-                <Route
-                  path={`/users/:userId`}
-                  render={({ match, history }) => {
-                    return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          loggedInUsername={loggedInUsername}
-                          logo={image}
-                          organizationName={organizationName}
-                          match={match}
-                        />
-                        <Main>
-                          <User
-                            logo={image}
-                            organizationName={organizationName}
-                            history={history}
-                          />
-                        </Main>
-                      </Frame>
-                    )
-                  }}
-                />
-                <Route
-                  path="/settings"
-                  render={({ match, history }) => {
-                    return (
-                      <Frame id="app-frame">
-                        <AppHeader
-                          loggedInUserState={loggedInUserState}
-                          loggedInUsername={loggedInUsername}
-                          logo={image}
-                          organizationName={organizationName}
-                          match={match}
-                          history={history}
-                          handleLogout={handleLogout}
-                        />
-                        <Main>
-                          <Settings
-                            updateTheme={updateTheme}
-                            saveTheme={saveTheme}
-                            undoStyle={undoStyle}
-                            errorMessage={errorMessage}
-                            successMessage={successMessage}
-                            clearResponseState={clearResponseState}
-                            imageResponse={image}
-                            stylesArray={stylesArray}
-                            addStylesToArray={addStylesToArray}
-                            removeStylesFromArray={removeStylesFromArray}
-                            sendRequest={sendMessage}
-                          />
-                        </Main>
-                      </Frame>
+                      <AdminRoute
+                        loggedInUserState={loggedInUserState}
+                        image={image}
+                        organizationName={organizationName}
+                        loggedInUsername={loggedInUsername}
+                        handleLogout={handleLogout}
+                        sendMessage={sendMessage}
+                        QRCodeURL={QRCodeURL}
+                        loggedInUsername={loggedInUsername}
+                        contacts={contacts}
+                        credentials={credentials}
+                        roles={roles}
+                        users={users}
+                        user={user}
+                        successMessage={successMessage}
+                        errorMessage={errorMessage}
+                        clearResponseState={clearResponseState}
+                        updateTheme={updateTheme}
+                        saveTheme={saveTheme}
+                        undoStyle={undoStyle}
+                        stylesArray={stylesArray}
+                        addStylesToArray={addStylesToArray}
+                        removeStylesFromArray={removeStylesFromArray}
+                        focusedConnectionID={focusedConnectionID}
+                      />
                     )
                   }}
                 />
                 {/* Redirect to root if no route match is found */}
-                <Route render={() => <Redirect to="/" />} />
+                <Route render={() => <Redirect to="/admin" />} />
               </Switch>
             </Router>
           </SessionProvider>
