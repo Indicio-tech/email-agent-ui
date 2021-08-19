@@ -12,29 +12,20 @@ import {
 import styled, { ThemeProvider } from 'styled-components'
 
 import AccountSetup from './UI/AccountSetup'
-import AppHeader from './UI/AppHeader'
 
 import { check, CanUser } from './UI/CanUser'
 import rules from './UI/rbac-rules'
 import AdminRoute from './routes/AdminRoute'
-
-
-import Contact from './UI/Contact'
-import Contacts from './UI/Contacts'
-import Credential from './UI/Credential'
-import Credentials from './UI/Credentials'
 import ForgotPassword from './UI/ForgotPassword'
 import FullPageSpinner from './UI/FullPageSpinner'
-import Home from './UI/Home'
 import Login from './UI/Login'
+import FormVerify from './UI/FormVerify'
+
 import {
   useNotification,
   NotificationProvider,
 } from './UI/NotificationProvider'
 import PasswordReset from './UI/PasswordReset'
-import Settings from './UI/Settings'
-import User from './UI/User'
-import Users from './UI/Users'
 
 import SessionProvider from './UI/SessionProvider'
 
@@ -807,19 +798,19 @@ function App() {
                   )
                 }}
               />
-              {/* <Route
+              <Route
                 path="/"
                 exact
                 render={() => {
                   return (
-                    <Root
+                    <FormVerify
                       QRCodeURL={QRCodeURL}
                       sendRequest={sendMessage}
                       contacts={contacts}
                     />
                   )
                 }}
-              /> */}
+              />
               <Route path="/admin">
                 <Redirect to="/admin/login" />
               </Route>
