@@ -12,6 +12,7 @@ import {
 import styled, { ThemeProvider } from 'styled-components'
 
 import AccountSetup from './UI/AccountSetup'
+import EmailVerification from './UI/EmailVerification'
 
 import { check, CanUser } from './UI/CanUser'
 import rules from './UI/rbac-rules'
@@ -768,6 +769,25 @@ function App() {
                     <Frame id="app-frame">
                       <Main>
                         <AccountSetup
+                          logo={image}
+                          history={history}
+                          sendRequest={sendMessage}
+                          messageHandler={messageHandler}
+                          user={user}
+                          users={users}
+                        />
+                      </Main>
+                    </Frame>
+                  )
+                }}
+              />
+               <Route
+                path="/emailVerification"
+                render={({ match, history }) => {
+                  return (
+                    <Frame id="app-frame">
+                      <Main>
+                        <EmailVerification
                           logo={image}
                           history={history}
                           sendRequest={sendMessage}

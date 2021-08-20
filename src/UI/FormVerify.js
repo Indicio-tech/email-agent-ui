@@ -27,6 +27,7 @@ function FormTestID(props) {
   const [recaptchaKey, setRecaptchaKey] = useState("")
   const [submitEmail, setSubmitEmail] = useState(false)
 
+  const recaptchaRef = React.createRef();
   const setNotification = useNotification()
 
 
@@ -39,7 +40,6 @@ function FormTestID(props) {
       if (res.data.error) {
         setNotification(res.data.error, 'error')
       } else {
-        console.log(res.data)
         setRecaptchaKey(res.data['key'])
       }
     })
@@ -49,22 +49,22 @@ function FormTestID(props) {
     e.preventDefault()
     const form = new FormData(credentialForm.current)
 
-    let attributes = {}
 
-    attributes = [
-      {
-        name: 'mpid',
-        value: form.get('mpid') || '',
+    Axios({
+      method: 'POST',
+      data: {
+        email: form.get('email'),
+        reCaptcha: recaptchaRef.current.getValue(),
       },
-      {
-        name: 'patient_local_id',
-        value: form.get('patient_local_id') || '',
-      },
-    ]
-
+      url: '/api/email/verify',
+    }).then((res) => {
+      if (res.data.error) {
+        setNotification(res.data.error, 'error')
+      } else {
+        setSubmitEmail(true);
+      }
+    })
     
-    
-    setSubmitEmail(true);
   }
 
 
@@ -85,6 +85,7 @@ function FormTestID(props) {
           </InputBox>
           <ReCAPTCHA
             sitekey={recaptchaKey}
+            ref={recaptchaRef}
           />,
           <Actions>
             <SubmitBtnModal type="submit">Submit</SubmitBtnModal>
