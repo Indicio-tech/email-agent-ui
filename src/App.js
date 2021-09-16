@@ -781,7 +781,7 @@ function App() {
                   )
                 }}
               />
-               <Route
+              <Route
                 path="/emailVerification"
                 render={({ match, history }) => {
                   return (
