@@ -22,7 +22,7 @@ const FormWrapper = styled.div`
   background: white;
 `
 
-const FormVerify = styled.form`
+const Form = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -60,7 +60,7 @@ const Label = styled.label`
   color: ${(props) => props.theme.text_color};
 `
 
-function FormTestID(props) {
+function FormVerify(props) {
   const credentialForm = useRef(null)
   const [recaptchaKey, setRecaptchaKey] = useState('')
   const [submitEmail, setSubmitEmail] = useState(false)
@@ -109,7 +109,7 @@ function FormTestID(props) {
           <HeaderVerify>
             Please submit your Email Address to be Validated
           </HeaderVerify>
-          <FormVerify onSubmit={handleSubmit} ref={credentialForm}>
+          <Form onSubmit={handleSubmit} ref={credentialForm}>
             <InputBox>
               <Label htmlFor="email">Email</Label>
               <InputField
@@ -123,7 +123,7 @@ function FormTestID(props) {
             <Actions>
               <SubmitBtnModal type="submit">Submit</SubmitBtnModal>
             </Actions>
-          </FormVerify>
+          </Form>
         </FormWrapper>
       ) : (
         <FormWrapper>
@@ -135,4 +135,4 @@ function FormTestID(props) {
   )
 }
 
-export default FormTestID
+export default FormVerify
