@@ -62,7 +62,7 @@ function Contact(props) {
 
   function openCredential(history, id) {
     if (history !== undefined) {
-      history.push('/credentials/' + id)
+      history.push('/admin/credentials/' + id)
     }
   }
 

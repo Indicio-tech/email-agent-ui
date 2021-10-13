@@ -81,8 +81,8 @@ function AppMenu(props) {
     return (
       <nav id="app-menu">
         <List>
-          <Item className={pathMatch === '/' ? 'active' : undefined}>
-            <StyledLink exact to="/">
+          <Item className={pathMatch === '/admin' ? 'active' : undefined}>
+            <StyledLink exact to="/admin">
               Home
             </StyledLink>
           </Item>
@@ -97,10 +97,10 @@ function AppMenu(props) {
             yes={() => (
               <Item
                 className={
-                  pathMatch.includes('/contacts') ? 'active' : undefined
+                  pathMatch.includes('/admin/contacts') ? 'active' : undefined
                 }
               >
-                <StyledLink to="/contacts">Contacts</StyledLink>
+                <StyledLink to="/admin/contacts">Contacts</StyledLink>
                 {/*<List>
               <Item className={pathMatch === '/contacts' ? 'active' : undefined}>
                 <StyledSubLink exact to="/contacts">
@@ -121,9 +121,11 @@ function AppMenu(props) {
             perform="credentials:read"
             yes={() => (
               <Item
-                className={pathMatch === '/credentials' ? 'active' : undefined}
+                className={
+                  pathMatch === '/admin/credentials' ? 'active' : undefined
+                }
               >
-                <StyledLink to="/credentials">Credentials</StyledLink>
+                <StyledLink to="/admin/credentials">Credentials</StyledLink>
               </Item>
             )}
           />
@@ -131,8 +133,10 @@ function AppMenu(props) {
             user={localUser}
             perform="users:read"
             yes={() => (
-              <Item className={pathMatch === '/users' ? 'active' : undefined}>
-                <StyledLink to="/users">Users</StyledLink>
+              <Item
+                className={pathMatch === '/admin/users' ? 'active' : undefined}
+              >
+                <StyledLink to="/admin/users">Users</StyledLink>
               </Item>
             )}
           />
@@ -155,9 +159,11 @@ function AppMenu(props) {
             yes={() => (
               <>
                 <Item
-                  className={pathMatch === '/settings' ? 'active' : undefined}
+                  className={
+                    pathMatch === '/admin/settings' ? 'active' : undefined
+                  }
                 >
-                  <StyledLink to="/settings">Settings</StyledLink>
+                  <StyledLink to="/admin/settings">Settings</StyledLink>
                 </Item>
               </>
             )}

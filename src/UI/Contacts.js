@@ -37,7 +37,7 @@ function Contacts(props) {
 
   function openContact(history, id) {
     if (history !== undefined) {
-      history.push('/contacts/' + id)
+      history.push('/admin/contacts/' + id)
     }
   }
 

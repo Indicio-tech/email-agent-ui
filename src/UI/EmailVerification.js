@@ -9,12 +9,7 @@ import { handleImageSrc } from './util'
 
 import QRCode from 'qrcode.react'
 
-import {
-  FormContainer,
-  LogoHolder,
-  Logo,
-  QRHolder,
-} from './CommonStylesForms'
+import { FormContainer, LogoHolder, Logo, QRHolder } from './CommonStylesForms'
 
 const QR = styled(QRCode)`
   display: block;
@@ -87,15 +82,13 @@ function AccountSetup(props) {
       <LogoHolder>
         {logo ? <Logo src={logo} alt="Logo" /> : <Logo />}
       </LogoHolder>
-      <p>
-        Scan the QR code to get your email credential!
-      </p>
+      <p>Scan the QR code to get your email credential!</p>
       <QRHolder>
-            {QRCodeURL ? (
-              <QR value={QRCodeURL} size={256} renderAs="svg" />
-            ) : (
-              <p>Loading...</p>
-            )}
+        {QRCodeURL ? (
+          <QR value={QRCodeURL} size={256} renderAs="svg" />
+        ) : (
+          <p>Loading...</p>
+        )}
       </QRHolder>
     </FormContainer>
   )
